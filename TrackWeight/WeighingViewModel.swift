@@ -9,33 +9,42 @@ import Combine
 
 @MainActor
 final class WeighingViewModel: ObservableObject {
-    @Published var state: WeighingState = .welcome
-    @Published var currentPressure: Float = 0.0
-    @Published var maxPressure: Float = 0.0
-    @Published var isListening = false
-    @Published var fingerTimer: Float = 0.0 // 0.0 to 1.0 for animation
-    
-    private let manager = OMSManager.shared
+    @Published private(set) var state: WeighingState = .welcome
+    @Published private(set) var currentPressure: Float = 0.0
+    @Published private(set) var maxPressure: Float = 0.0
+    @Published private(set) var isListening = false
+    @Published private(set) var fingerTimer: Float = 0.0 // 0.0 to 1.0 for animation
+    @Published private(set) var stabilityProgress: Float = 0.0
+    @Published private(set) var isStabilizing: Bool = false
+
+    private let touchProvider: TouchDataProviding
     private var task: Task<Void, Never>?
     private var timerTask: Task<Void, Never>?
     private var baselinePressure: Float = 0.0
     private var hasDetectedFinger = false
     private var hasDetectedItem = false
     private var finalWeight: Float = 0.0
-    private let fingerHoldDuration: TimeInterval = 3.0
     private var pressureHistory: [Float] = []
-    private let historySize = 10
-    private let rateOfChangeThreshold: Float = 5
-    
-    // Weighing stability properties
-    private let stabilityDuration: TimeInterval = 3.0
-    private let stabilityAnimationDelay: TimeInterval = 1.0 // Show animation after 1s of stability
     private var stabilityStartTime: Date?
     private var stableWeight: Float = 0.0
-    private let stabilityThreshold: Float = 2.0 // Max allowed weight variation
-    @Published var stabilityProgress: Float = 0.0
-    @Published var isStabilizing: Bool = false
-    
+
+    // MARK: - Configuration Constants
+
+    let fingerHoldDuration: TimeInterval = 3.0
+    let historySize = 10
+    let rateOfChangeThreshold: Float = 5
+    let stabilityDuration: TimeInterval = 3.0
+    let stabilityAnimationDelay: TimeInterval = 1.0
+    let stabilityThreshold: Float = 2.0
+
+    // MARK: - Initialization
+
+    init(touchProvider: TouchDataProviding = OMSManager.shared) {
+        self.touchProvider = touchProvider
+    }
+
+    // MARK: - Public Methods
+
     func startWeighing() {
         state = .waitingForFinger
         hasDetectedFinger = false
@@ -50,20 +59,20 @@ final class WeighingViewModel: ObservableObject {
         stableWeight = 0.0
         isStabilizing = false
         pressureHistory.removeAll()
-        
-        if manager.startListening() {
+
+        if touchProvider.startListening() {
             isListening = true
         }
-        
-        task = Task { [weak self, manager] in
-            for await touchData in manager.touchDataStream {
+
+        task = Task { [weak self, touchProvider] in
+            for await touchData in touchProvider.touchDataStream {
                 await MainActor.run {
                     self?.processTouchData(touchData)
                 }
             }
         }
     }
-    
+
     func restart() {
         stopListening()
         state = .welcome
@@ -72,103 +81,103 @@ final class WeighingViewModel: ObservableObject {
         stabilityStartTime = nil
         isStabilizing = false
     }
-    
+
+    // MARK: - Private Methods
+
     private func stopListening() {
         task?.cancel()
         timerTask?.cancel()
-        if manager.stopListening() {
+        if touchProvider.stopListening() {
             isListening = false
         }
     }
-    
+
     private func startFingerTimer() {
         timerTask?.cancel()
         fingerTimer = 0.0
-        
+
         timerTask = Task { [weak self] in
             let startTime = Date()
-            
+
             while !Task.isCancelled {
                 let elapsed = Date().timeIntervalSince(startTime)
                 let progress = min(elapsed / (self?.fingerHoldDuration ?? 3.0), 1.0)
-                
+
                 await MainActor.run {
                     self?.fingerTimer = Float(progress)
                 }
-                
+
                 if progress >= 1.0 {
                     await MainActor.run {
                         self?.completeFingerTimer()
                     }
                     break
                 }
-                
+
                 try? await Task.sleep(nanoseconds: 16_666_667) // ~60fps
             }
         }
     }
-    
+
     private func resetFingerTimer() {
         timerTask?.cancel()
         fingerTimer = 0.0
     }
-    
+
     private func completeFingerTimer() {
         hasDetectedFinger = true
         baselinePressure = currentPressure
         state = .waitingForItem
         timerTask?.cancel()
     }
-    
+
     private func startStabilityTimer(with weight: Float) {
-        // stabilityStartTime and stableWeight are already set in the calling code
         stabilityProgress = 0.0
-        isStabilizing = true // Start showing animation since we're already past the 1s delay
-        
+        isStabilizing = true
+
         timerTask = Task { [weak self] in
-            // We start from the point where animation should begin (after 1s delay)
             let animationStartTime = Date()
             let remainingDuration = (self?.stabilityDuration ?? 3.0) - (self?.stabilityAnimationDelay ?? 1.0)
-            
+
             while !Task.isCancelled {
                 let elapsed = Date().timeIntervalSince(animationStartTime)
                 let progress = min(elapsed / remainingDuration, 1.0)
-                
+
                 await MainActor.run {
                     self?.stabilityProgress = Float(progress)
                 }
-                
+
                 if progress >= 1.0 {
                     await MainActor.run {
                         self?.completeWeighing()
                     }
                     break
                 }
-                
+
                 try? await Task.sleep(nanoseconds: 16_666_667) // ~60fps
             }
         }
     }
-    
+
     private func completeWeighing() {
         state = .result(weight: currentPressure)
         stopListening()
     }
-    
+
     private func resetStabilityTimer() {
         stabilityStartTime = nil
         stabilityProgress = 0.0
         isStabilizing = false
         timerTask?.cancel()
     }
-    
+
     private func processTouchData(_ touchData: [OMSTouchData]) {
         guard !touchData.isEmpty else {
             // Reset timer if finger is lifted during waiting
             if state == .waitingForFinger && !hasDetectedFinger {
                 resetFingerTimer()
             }
-            
+
             if state == .weighing {
                 if hasDetectedItem && finalWeight > 0 {
                     state = .result(weight: finalWeight)
@@ -177,23 +186,21 @@ final class WeighingViewModel: ObservableObject {
             }
             return
         }
-        
-        
+
         let mainTouch = touchData.first!
         currentPressure = mainTouch.pressure
-        
+
         // Add current pressure to history
         pressureHistory.append(currentPressure)
         if pressureHistory.count > historySize {
             pressureHistory.removeFirst()
         }
-        
-        // log the average pressure (moving avg)
+
+        // Calculate moving average
         let avgPressure = pressureHistory.reduce(0, +) / Float(pressureHistory.count)
         print("average pressure: \(avgPressure)")
         currentPressure = avgPressure
-        
-        
+
         switch state {
         case .waitingForFinger:
             if !hasDetectedFinger {
@@ -202,7 +209,7 @@ final class WeighingViewModel: ObservableObject {
                     startFingerTimer()
                 }
             }
-            
+
         case .waitingForItem:
             if hasDetectedFinger {
                 // Calculate rate of change if we have enough history
@@ -222,38 +229,65 @@ final class WeighingViewModel: ObservableObject {
                 state = .waitingForFinger
                 pressureHistory.removeAll()
             }
-            
+
         case .weighing:
-            // Check if weight is stable (hasn't changed by more than 2g)
+            // Check if weight is stable
             let weightDifference = stabilityStartTime != nil ? abs(currentPressure - stableWeight) : 0
-            
+
             if stabilityStartTime == nil {
-                // First reading in weighing state - start tracking stability
                 stabilityStartTime = Date()
                 stableWeight = currentPressure
             } else if weightDifference > stabilityThreshold {
-                // Weight became unstable, reset stability tracking
                 resetStabilityTimer()
                 stabilityStartTime = Date()
                 stableWeight = currentPressure
             } else {
-                // Weight is stable, check if we should start the stabilization process
                 let timeSinceStable = Date().timeIntervalSince(stabilityStartTime!)
-                
+
                 if timeSinceStable >= stabilityAnimationDelay && !isStabilizing {
-                    // Weight has been stable for at least 1 second, start stabilization timer
                     startStabilityTimer(with: stableWeight)
                 }
             }
-            
+
         default:
             break
         }
     }
-    
+
+    // MARK: - Test Helpers
+
+    #if DEBUG
+    var testPressureHistory: [Float] { pressureHistory }
+    var testHasDetectedFinger: Bool { hasDetectedFinger }
+    var testHasDetectedItem: Bool { hasDetectedItem }
+    var testBaselinePressure: Float { baselinePressure }
+
+    func testProcessTouchData(_ touchData: [OMSTouchData]) {
+        processTouchData(touchData)
+    }
+
+    func testSetState(_ newState: WeighingState) {
+        state = newState
+    }
+
+    func testSetHasDetectedFinger(_ value: Bool) {
+        hasDetectedFinger = value
+    }
+
+    func testAddToPressureHistory(_ pressure: Float) {
+        pressureHistory.append(pressure)
+        if pressureHistory.count > historySize {
+            pressureHistory.removeFirst()
+        }
+    }
+
+    func testClearPressureHistory() {
+        pressureHistory.removeAll()
+    }
+    #endif
+
     deinit {
         task?.cancel()
         timerTask?.cancel()
-        manager.stopListening()
     }
 }

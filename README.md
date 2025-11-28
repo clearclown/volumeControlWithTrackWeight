@@ -1,91 +1,70 @@
-# TrackWeight
+# Gravity Volume Control 🪨🔊
 
-**Turn your MacBook's trackpad into a precise digital weighing scale**
+**MacBookのトラックパッドを「世界で最も不便な音量コントローラー」に変える**
 
-[TrackWeight](
-https://x.com/KrishRShah/status/1947186835811193330) is a macOS application that transforms your MacBook's trackpad into an accurate weighing scale by leveraging the Force Touch pressure sensors built into modern MacBook trackpads.
+[Gravity Volume Control] は、MacBookのトラックパッドに搭載された感圧センサー (Force Touch) を利用し、**「乗せた物の重さ」でシステム音量を制御する** ジョークアプリケーションです。
 
-https://github.com/user-attachments/assets/7eaf9e0b-3dec-4829-b868-f54a8fd53a84
+エンジニア界隈で人気の「最悪な音量UIコンテスト (Bad Volume Control UI)」へのオマージュとして開発されました。
 
-To use it yourself:
+https://github.com/user-attachments/assets/demo-video-placeholder
 
-1. Open the scale
-2. Rest your finger on the trackpad
-3. While maintaining finger contact, put your object on the trackpad
-4. Try to put as little pressure on the trackpad while still maintaining contact. This is the weight of your object
+## 使い方 (The "Bad" Experience)
 
-## How It Works
+1. アプリを起動します。
+2. トラックパッドに指を置きます（通電のため必須）。
+3. その指の横に **「重り」** を置きます。
+   - 🪶 **軽いもの (例: 消しゴム)** → 🔈 音量: 小
+   - 🍺 **重いもの (例: 満タンのマグカップ)** → 🔊 音量: 大
+4. 動画を見ている間、**その重い物をずっとトラックパッドに乗せ続けてください**。物をどかすと、即座にミュートになります。
 
-TrackWeight utilizes a custom fork of the [Open Multi-Touch Support library](https://github.com/krishkrosh/OpenMultitouchSupport) by [Takuto Nakamura](https://github.com/Kyome22) to gain private access to all mouse and trackpad events on macOS. This library provides detailed touch data including pressure readings that are normally inaccessible to standard applications.
+## 学習できる技術要素 (For Engineers)
 
-The key insight is that trackpad pressure events are only generated when there's capacitance detected on the trackpad surface - meaning your finger (or another conductive object) must be in contact with the trackpad. When this condition is met, the trackpad's Force Touch sensors provide precise pressure readings that can be calibrated and converted into weight measurements.
+一見するとただのジョークアプリですが、内部では高度な技術的挑戦が行われています。Swiftエンジニアとして以下の要素を実践的に学ぶことができます。
 
-## Requirements
+### 1. Apple Private APIs & ハードウェア制御
+通常アクセスできないトラックパッドの生データ（圧力、接触面積）を取得するために、プライベートフレームワークである `OpenMultitouchSupport` の解析と利用方法を学べます。
+- **Key Files:** `ContentViewModel.swift`, `Frameworks/OpenMultitouchSupport`
 
-- **macOS 13.0+** (Ventura or later)
-- **MacBook with Force Touch trackpad** (2015 or newer MacBook Pro, 2016 or newer MacBook)
-- **App Sandbox disabled** (required for low-level trackpad access)
-- **Xcode 16.0+** and **Swift 6.0+** (for development)
+### 2. Swift Modern Concurrency (Async/Await)
+センサーから絶え間なく流れてくるデータストリームを、Swift 6.0時代の最新の並行処理モデルで効率的に処理しています。
+- `AsyncStream` を用いたイベント監視
+- `Task` と `@MainActor` によるUIスレッドへの安全なデータバインディング
+- **Key Files:** `ScaleViewModel.swift`
 
-## Installation
+### 3. 信号処理 (Signal Processing)
+センサーの生値は常に揺れ動いています（ノイズ）。これを不快感のない滑らかな音量変化に変換するためのアルゴリズム実装が含まれています。
+- 移動平均 (Moving Average) によるスムージング
+- 意図しない入力と意図的な操作を区別する「変化率 (Rate of Change)」の監視
+- **Key Files:** `WeighingViewModel.swift` (ロジック参照)
 
-### Option 1: Download DMG (Recommended)
+### 4. macOS システム統合
+アプリ内だけでなく、OS全体のマスターボリュームを制御するための `AudioToolbox` や `Core Audio` との連携、およびサンドボックス環境下での権限管理 (`entitlements`) について学べます。
 
-1. Go to the [Releases](https://github.com/krishkrosh/TrackWeight/releases) page
-2. Download the latest TrackWeight DMG file
-3. Open the DMG and drag TrackWeight.app to your Applications folder
-4. Run the application (you may need to allow it in System Preferences > Security & Privacy for unsigned builds)
+## アーキテクチャ (Architecture)
 
-### Option 2: Homebrew
-```bash
-brew install --cask krishkrosh/apps/trackweight --force
-```
- 
-### Option 3: Build from Source
+このアプリは、ハードウェアからの入力をリアクティブにUIとシステム設定へ反映させる **MVVM (Model-View-ViewModel)** パターンを採用しています。
 
-1. Clone this repository
-2. Open `TrackWeight.xcodeproj` in Xcode
-3. Disable App Sandbox in the project settings (required for trackpad access)
-4. Build and run the application
+```mermaid
+graph TD
+    Hardware[Trackpad Force Sensors] -->|Raw Pressure Data| OMS[OpenMultitouchSupport Framework]
+    OMS -->|Async Stream| VM[ScaleViewModel (ObservableObject)]
 
-For more information about setting up the build pipeline, see [.github/workflows/README.md](.github/workflows/README.md).
+    subgraph "Application Logic"
+        VM -->|Signal Processing| Logic[Smoothing & Mapping]
+        Logic -->|Calculated Volume| PublishedVar[@Published volume]
+    end
 
-### Calibration Process
+    PublishedVar -->|Binding| View[SwiftUI View]
+    PublishedVar -->|Side Effect| AudioAPI[macOS System Audio]
+````
 
-The weight calculations have been validated by:
-1. Placing the MacBook trackpad directly on top of a conventional digital scale
-2. Applying various known weights while maintaining finger contact with the trackpad
-3. Comparing and calibrating the pressure readings against the reference scale measurements
-4. Ensuring consistent accuracy across different weight ranges
+1.  **Data Source:** `OpenMultitouchSupport` がハードウェア割り込みをフックし、タッチイベントを生成。
+2.  **ViewModel:** `ScaleViewModel` が非同期ストリーム (`for await`) でデータを受け取り、ノイズ除去と数値変換（圧力 0.0〜1.0 → 音量 0.0〜100.0）を行う。
+3.  **View:** SwiftUIが `@Published` プロパティの変更を検知し、画面上の「重そうなアニメーション」を描画。
+4.  **System:** 同時にバックグラウンドでシステム音量を更新。
 
-It turns out that the data we get from MultitouchSupport is already in grams!
+## 免責事項 (Disclaimer)
 
-## Limitations
+**警告:** トラックパッドに過度な重さをかけたり、鋭利な物を置いたりしないでください。トラックパッドが破損する恐れがあります。本アプリの使用によって生じたハードウェアの損傷について、開発者は一切の責任を負いません。
 
-- **Finger contact required**: The trackpad only provides pressure readings when it detects capacitance (finger touch), so you cannot weigh objects directly without maintaining contact
-- **Surface contact**: Objects being weighed must be placed in a way that doesn't interfere with the required finger contact
-- **Metal objects**: Metal objects may be detected as a finger touch, so you may need to place a piece of paper or a cloth between the object and the trackpad to get an accurate reading
-
-## Technical Details
-
-The application is built using:
-- **SwiftUI** for the user interface
-- **Combine** for reactive data flow
-- **Open Multi-Touch Support library** for low-level trackpad access
-
-### Open Multi-Touch Support Library
-
-This project relies heavily on the excellent work by **Takuto Nakamura** ([@Kyome22](https://github.com/Kyome22)) and the [Open Multi-Touch Support library](https://github.com/krishkrosh/OpenMultitouchSupport). The library provides:
-
-- Access to global multitouch events on macOS trackpads
-- Detailed touch data including position, pressure, angle, and density
-- Thread-safe async/await support for touch event streams
-- Touch state tracking and comprehensive sensor data
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Disclaimer
-
-This application is for experimental and educational purposes. While efforts have been made to ensure accuracy, TrackWeight should not be used for critical measurements or commercial applications where precision is essential. Always verify measurements with a calibrated scale for important use cases.
+これはジョークです。本気で日常利用しないでください。

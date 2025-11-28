@@ -21,7 +21,22 @@
 		93A095122E33359600E1E1D1 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A095112E33359600E1E1D1 /* SettingsView.swift */; };
 		93A095162E33624200E1E1D1 /* OpenMultitouchSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 93A095152E33624200E1E1D1 /* OpenMultitouchSupport */; };
 		93ABD0212E2E01E200668D4F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ABD0202E2E01E200668D4F /* HomeView.swift */; };
+		AABB00152E3F000100000021 /* TouchDataProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00162E3F000100000022 /* TouchDataProviding.swift */; };
+		AABB00012E3F000100000001 /* WeighingStateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00022E3F000100000002 /* WeighingStateTests.swift */; };
+		AABB00032E3F000100000003 /* WeighingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00042E3F000100000004 /* WeighingViewModelTests.swift */; };
+		AABB00052E3F000100000005 /* ScaleViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00062E3F000100000006 /* ScaleViewModelTests.swift */; };
+		AABB00072E3F000100000007 /* MockTouchDataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABB00082E3F000100000008 /* MockTouchDataProvider.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AABB00092E3F000100000009 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77292A7C2B931953001CA3F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 77292A832B931953001CA3F6;
+			remoteInfo = TrackWeight;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		77292A842B931953001CA3F6 /* TrackWeight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrackWeight.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +54,12 @@
 		77292AA72B931E06001CA3F6 /* ScaleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleViewModel.swift; sourceTree = "<group>"; };
 		93A095112E33359600E1E1D1 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		93ABD0202E2E01E200668D4F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		AABB00162E3F000100000022 /* TouchDataProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchDataProviding.swift; sourceTree = "<group>"; };
+		AABB000A2E3F000100000010 /* TrackWeightTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrackWeightTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AABB00022E3F000100000002 /* WeighingStateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeighingStateTests.swift; sourceTree = "<group>"; };
+		AABB00042E3F000100000004 /* WeighingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeighingViewModelTests.swift; sourceTree = "<group>"; };
+		AABB00062E3F000100000006 /* ScaleViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScaleViewModelTests.swift; sourceTree = "<group>"; };
+		AABB00082E3F000100000008 /* MockTouchDataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTouchDataProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +71,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AABB000B2E3F000100000011 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -57,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				77292A862B931953001CA3F6 /* TrackWeight */,
+				AABB000C2E3F000100000012 /* TrackWeightTests */,
 				77292A852B931953001CA3F6 /* Products */,
 				77292A992B931D7A001CA3F6 /* Frameworks */,
 			);
@@ -66,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				77292A842B931953001CA3F6 /* TrackWeight.app */,
+				AABB000A2E3F000100000010 /* TrackWeightTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -78,6 +108,7 @@
 				77292A872B931953001CA3F6 /* TrackWeightApp.swift */,
 				77292A892B931953001CA3F6 /* ContentView.swift */,
 				77292A972B931D60001CA3F6 /* ContentViewModel.swift */,
+				AABB00162E3F000100000022 /* TouchDataProviding.swift */,
 				77292A9D2B931E01001CA3F6 /* WeighingState.swift */,
 				93ABD0202E2E01E200668D4F /* HomeView.swift */,
 				77292A9F2B931E02001CA3F6 /* WeighingViewModel.swift */,
@@ -106,6 +137,25 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AABB000C2E3F000100000012 /* TrackWeightTests */ = {
+			isa = PBXGroup;
+			children = (
+				AABB00022E3F000100000002 /* WeighingStateTests.swift */,
+				AABB00042E3F000100000004 /* WeighingViewModelTests.swift */,
+				AABB00062E3F000100000006 /* ScaleViewModelTests.swift */,
+				AABB000D2E3F000100000013 /* Mocks */,
+			);
+			path = TrackWeightTests;
+			sourceTree = "<group>";
+		};
+		AABB000D2E3F000100000013 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				AABB00082E3F000100000008 /* MockTouchDataProvider.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -129,6 +179,24 @@
 			productReference = 77292A842B931953001CA3F6 /* TrackWeight.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AABB000E2E3F000100000014 /* TrackWeightTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AABB000F2E3F000100000015 /* Build configuration list for PBXNativeTarget "TrackWeightTests" */;
+			buildPhases = (
+				AABB00102E3F000100000016 /* Sources */,
+				AABB000B2E3F000100000011 /* Frameworks */,
+				AABB00112E3F000100000017 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AABB00122E3F000100000018 /* PBXTargetDependency */,
+			);
+			name = TrackWeightTests;
+			productName = TrackWeightTests;
+			productReference = AABB000A2E3F000100000010 /* TrackWeightTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -141,6 +209,10 @@
 				TargetAttributes = {
 					77292A832B931953001CA3F6 = {
 						CreatedOnToolsVersion = 15.2;
+					};
+					AABB000E2E3F000100000014 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 77292A832B931953001CA3F6;
 					};
 				};
 			};
@@ -161,6 +233,7 @@
 			projectRoot = "";
 			targets = (
 				77292A832B931953001CA3F6 /* TrackWeight */,
+				AABB000E2E3F000100000014 /* TrackWeightTests */,
 			);
 		};
 /* End PBXProject section */
@@ -175,6 +248,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AABB00112E3F000100000017 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -186,6 +266,7 @@
 				77292A982B931D60001CA3F6 /* ContentViewModel.swift in Sources */,
 				77292A882B931953001CA3F6 /* TrackWeightApp.swift in Sources */,
 				93ABD0212E2E01E200668D4F /* HomeView.swift in Sources */,
+				AABB00152E3F000100000021 /* TouchDataProviding.swift in Sources */,
 				77292A9C2B931E01001CA3F6 /* WeighingState.swift in Sources */,
 				77292A9E2B931E02001CA3F6 /* WeighingViewModel.swift in Sources */,
 				77292AA02B931E03001CA3F6 /* TrackWeightView.swift in Sources */,
@@ -196,7 +277,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AABB00102E3F000100000016 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AABB00012E3F000100000001 /* WeighingStateTests.swift in Sources */,
+				AABB00032E3F000100000003 /* WeighingViewModelTests.swift in Sources */,
+				AABB00052E3F000100000005 /* ScaleViewModelTests.swift in Sources */,
+				AABB00072E3F000100000007 /* MockTouchDataProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AABB00122E3F000100000018 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 77292A832B931953001CA3F6 /* TrackWeight */;
+			targetProxy = AABB00092E3F000100000009 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		77292A912B931954001CA3F6 /* Debug */ = {
@@ -384,6 +484,44 @@
 			};
 			name = Release;
 		};
+		AABB00132E3F000100000019 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 9ZRLG6277G;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krishkrosh.TrackWeightTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrackWeight.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrackWeight";
+			};
+			name = Debug;
+		};
+		AABB00142E3F000100000020 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = 9ZRLG6277G;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.krishkrosh.TrackWeightTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrackWeight.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrackWeight";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -401,6 +539,15 @@
 			buildConfigurations = (
 				77292A942B931954001CA3F6 /* Debug */,
 				77292A952B931954001CA3F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AABB000F2E3F000100000015 /* Build configuration list for PBXNativeTarget "TrackWeightTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AABB00132E3F000100000019 /* Debug */,
+				AABB00142E3F000100000020 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
