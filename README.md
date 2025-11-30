@@ -2,71 +2,74 @@
 
 [![Platform](https://img.shields.io/badge/platform-macOS%2013.0+-blue.svg)](https://www.apple.com/macos/)
 [![Swift](https://img.shields.io/badge/Swift-6.0-orange.svg)](https://swift.org/)
-[![Tests](https://img.shields.io/badge/tests-48%20passed-brightgreen.svg)](#テスト-testing)
+[![Tests](https://img.shields.io/badge/tests-48%20passed-brightgreen.svg)](#testing)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
 
-**MacBookのトラックパッドを「世界で最も不便な音量コントローラー」に変える**
+**🌍 [日本語](docs/readmeLang/README_ja.md) | [简体中文](docs/readmeLang/README_zh-CN.md) | [繁體中文](docs/readmeLang/README_zh-TW.md) | [Русский](docs/readmeLang/README_ru.md) | [فارسی](docs/readmeLang/README_fa.md) | [العربية](docs/readmeLang/README_ar.md)**
 
-[Gravity Volume Control] は、MacBookのトラックパッドに搭載された感圧センサー (Force Touch) を利用し、**「乗せた物の重さ」でシステム音量を制御する** ジョークアプリケーションです。
+**Transform your MacBook's trackpad into "The World's Most Inconvenient Volume Controller"**
 
-エンジニア界隈で人気の「最悪な音量UIコンテスト (Bad Volume Control UI)」へのオマージュとして開発されました。
+[Gravity Volume Control] is a joke application that uses the Force Touch pressure sensor built into MacBook trackpads to **control system volume by the weight of objects placed on it**.
+
+Developed as an homage to the popular "Bad Volume Control UI Contest" in the engineering community.
 
 https://github.com/user-attachments/assets/demo-video-placeholder
 
 ---
 
-## 目次
+## Table of Contents
 
-- [使い方](#使い方-the-bad-experience)
-- [動作環境](#動作環境-requirements)
-- [インストール](#インストール-installation)
-- [開発](#開発-development)
-- [アーキテクチャ](#アーキテクチャ-architecture)
-- [プロジェクト構成](#プロジェクト構成-project-structure)
-- [学習できる技術要素](#学習できる技術要素-for-engineers)
-- [免責事項](#免責事項-disclaimer)
-
----
-
-## 使い方 (The "Bad" Experience)
-
-1. アプリを起動します。
-2. トラックパッドに指を置きます（通電のため必須）。
-3. その指の横に **「重り」** を置きます。
-   - 🪶 **軽いもの (例: 消しゴム)** → 🔈 音量: 小
-   - 🍺 **重いもの (例: 満タンのマグカップ)** → 🔊 音量: 大
-4. 動画を見ている間、**その重い物をずっとトラックパッドに乗せ続けてください**。物をどかすと、即座にミュートになります。
+- [How to Use](#how-to-use-the-bad-experience)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Development](#development)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Learning Opportunities](#learning-opportunities-for-engineers)
+- [Contributing](#contributing)
+- [Disclaimer](#disclaimer)
 
 ---
 
-## 動作環境 (Requirements)
+## How to Use (The "Bad" Experience)
 
-| 項目 | 要件 |
-|------|------|
-| OS | macOS 13.0 (Ventura) 以上 |
-| ハードウェア | Force Touch 対応トラックパッド搭載 MacBook |
-| Xcode | 16.0 以上 |
+1. Launch the app.
+2. Place your finger on the trackpad (required for electrical conductivity).
+3. Place a **"weight"** next to your finger.
+   - 🪶 **Light objects (e.g., eraser)** → 🔈 Volume: Low
+   - 🍺 **Heavy objects (e.g., full mug)** → 🔊 Volume: High
+4. **Keep that heavy object on the trackpad the entire time** you're watching a video. If you remove it, the audio instantly mutes.
+
+---
+
+## Requirements
+
+| Item | Requirement |
+|------|-------------|
+| OS | macOS 13.0 (Ventura) or later |
+| Hardware | MacBook with Force Touch trackpad |
+| Xcode | 16.0 or later |
 | Swift | 6.0 |
 
-> **Note:** 外部トラックパッドや Magic Trackpad では動作しません。MacBook 内蔵トラックパッドのみ対応しています。
+> **Note:** Does NOT work with external trackpads or Magic Trackpad. Only supports built-in MacBook trackpads.
 
 ---
 
-## インストール (Installation)
+## Installation
 
-### Homebrew (推奨)
+### Homebrew (Recommended)
 
 ```bash
 brew install --cask gravity-volume-control
 ```
 
-### 手動インストール
+### Manual Installation
 
-1. [Releases](https://github.com/clearclown/volumeControlWithTrackWeight/releases) から最新の `.dmg` をダウンロード
-2. `Gravity Volume Control.app` を `/Applications` にドラッグ
-3. 初回起動時、「開発元を確認できない」と表示される場合は、システム設定 > プライバシーとセキュリティ から許可
+1. Download the latest `.dmg` from [Releases](https://github.com/clearclown/volumeControlWithTrackWeight/releases)
+2. Drag `Gravity Volume Control.app` to `/Applications`
+3. On first launch, if you see "Developer cannot be verified", go to System Settings > Privacy & Security and allow it
 
-### ソースからビルド
+### Build from Source
 
 ```bash
 git clone https://github.com/clearclown/volumeControlWithTrackWeight.git
@@ -76,51 +79,51 @@ xcodebuild build -scheme TrackWeight -destination 'platform=macOS'
 
 ---
 
-## 開発 (Development)
+## Development
 
-### 開発方針
+### Development Philosophy
 
-このプロジェクトは **TDD (テスト駆動開発)** を採用しています。
+This project follows **TDD (Test-Driven Development)**.
 
-- 新機能追加時は、まずテストを書く
-- 実機での動作確認より、テストの成功を優先
-- ViewModelは依存性注入 (DI) によりテスト可能な設計
+- Write tests first when adding new features
+- Prioritize test success over manual device testing
+- ViewModels use Dependency Injection (DI) for testable design
 
-### ビルド
+### Build
 
 ```bash
-# アプリをビルド
+# Build the app
 xcodebuild build -scheme TrackWeight -destination 'platform=macOS' \
   CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 ```
 
-### テスト (Testing)
+### Testing
 
 ```bash
-# 全テストを実行
+# Run all tests
 xcodebuild test -scheme TrackWeight -destination 'platform=macOS' \
   -only-testing:TrackWeightTests \
   CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
 ```
 
-**テストカバレッジ:**
+**Test Coverage:**
 
-| テストスイート | テスト数 | 対象 |
-|--------------|---------|------|
-| `ScaleViewModelTests` | 17 | 基本的な秤機能 |
-| `WeighingViewModelTests` | 24 | 計量ワークフロー・状態遷移 |
-| `WeighingStateTests` | 7 | 状態の等価性 |
-| **合計** | **48** | - |
+| Test Suite | Test Count | Target |
+|------------|------------|--------|
+| `ScaleViewModelTests` | 17 | Basic scale functionality |
+| `WeighingViewModelTests` | 24 | Weighing workflow & state transitions |
+| `WeighingStateTests` | 7 | State equality |
+| **Total** | **48** | - |
 
-### AI開発支援
+### AI Development Support
 
-AI アシスタント (Claude Code 等) での開発時は `CLAUDE.md` を参照してください。TDDルールや禁止事項が記載されています。
+When developing with AI assistants (Claude Code, etc.), refer to `CLAUDE.md` for TDD rules and guidelines.
 
 ---
 
-## アーキテクチャ (Architecture)
+## Architecture
 
-このアプリは、ハードウェアからの入力をリアクティブにUIとシステム設定へ反映させる **MVVM (Model-View-ViewModel)** パターンを採用しています。
+This app uses the **MVVM (Model-View-ViewModel)** pattern to reactively reflect hardware input to both UI and system settings.
 
 ```mermaid
 graph TD
@@ -136,94 +139,94 @@ graph TD
     PublishedVar -->|Side Effect| AudioAPI[macOS System Audio]
 ```
 
-### データフロー
+### Data Flow
 
-1. **Data Source:** `OpenMultitouchSupport` がハードウェア割り込みをフックし、タッチイベントを生成。
-2. **ViewModel:** `ScaleViewModel` が非同期ストリーム (`for await`) でデータを受け取り、ノイズ除去と数値変換（圧力 0.0〜1.0 → 音量 0.0〜100.0）を行う。
-3. **View:** SwiftUIが `@Published` プロパティの変更を検知し、画面上の「重そうなアニメーション」を描画。
-4. **System:** 同時にバックグラウンドでシステム音量を更新。
+1. **Data Source:** `OpenMultitouchSupport` hooks hardware interrupts and generates touch events.
+2. **ViewModel:** `ScaleViewModel` receives data via async stream (`for await`), performs noise reduction and value conversion (pressure 0.0~1.0 → volume 0.0~100.0).
+3. **View:** SwiftUI detects `@Published` property changes and renders "heavy-looking animations".
+4. **System:** Simultaneously updates system volume in background.
 
-### 依存性注入 (DI)
+### Dependency Injection (DI)
 
-ViewModelはテスト可能な設計になっています：
+ViewModels are designed for testability:
 
 ```swift
-// 本番環境（デフォルト）
-let viewModel = ScaleViewModel() // OMSManager.shared を使用
+// Production (default)
+let viewModel = ScaleViewModel() // Uses OMSManager.shared
 
-// テスト環境
+// Testing
 let mockProvider = MockTouchDataProvider()
 let viewModel = ScaleViewModel(touchProvider: mockProvider)
 ```
 
 ---
 
-## プロジェクト構成 (Project Structure)
+## Project Structure
 
 ```
 volumeControlWithTrackWeight/
-├── TrackWeight/                    # メインアプリケーション
-│   ├── TrackWeightApp.swift        # エントリーポイント
-│   ├── ContentView.swift           # メイン画面
-│   ├── ScaleView.swift             # 秤UI
-│   ├── ScaleViewModel.swift        # 秤ロジック
-│   ├── WeighingView.swift          # 計量UI
-│   ├── WeighingViewModel.swift     # 計量ワークフロー
-│   ├── WeighingState.swift         # 状態定義
-│   └── TouchDataProviding.swift    # DI用プロトコル
+├── TrackWeight/                    # Main application
+│   ├── TrackWeightApp.swift        # Entry point
+│   ├── ContentView.swift           # Main screen
+│   ├── ScaleView.swift             # Scale UI
+│   ├── ScaleViewModel.swift        # Scale logic
+│   ├── WeighingView.swift          # Weighing UI
+│   ├── WeighingViewModel.swift     # Weighing workflow
+│   ├── WeighingState.swift         # State definitions
+│   └── TouchDataProviding.swift    # DI protocol
 │
-├── TrackWeightTests/               # ユニットテスト
+├── TrackWeightTests/               # Unit tests
 │   ├── Mocks/
 │   │   └── MockTouchDataProvider.swift
 │   ├── ScaleViewModelTests.swift
 │   ├── WeighingViewModelTests.swift
 │   └── WeighingStateTests.swift
 │
-├── CLAUDE.md                       # AI開発ガイドライン
+├── CLAUDE.md                       # AI development guidelines
 └── README.md
 ```
 
 ---
 
-## 学習できる技術要素 (For Engineers)
+## Learning Opportunities (For Engineers)
 
-一見するとただのジョークアプリですが、内部では高度な技術的挑戦が行われています。Swiftエンジニアとして以下の要素を実践的に学ぶことができます。
+At first glance, this is just a joke app, but it contains advanced technical challenges. As a Swift engineer, you can practically learn the following:
 
-### 1. Apple Private APIs & ハードウェア制御
+### 1. Apple Private APIs & Hardware Control
 
-通常アクセスできないトラックパッドの生データ（圧力、接触面積）を取得するために、プライベートフレームワークである `OpenMultitouchSupport` の解析と利用方法を学べます。
+Learn how to analyze and use the private framework `OpenMultitouchSupport` to access raw trackpad data (pressure, contact area) that's normally inaccessible.
 
 - **Key Files:** `ContentViewModel.swift`, `TouchDataProviding.swift`
 
 ### 2. Swift Modern Concurrency (Async/Await)
 
-センサーから絶え間なく流れてくるデータストリームを、Swift 6.0時代の最新の並行処理モデルで効率的に処理しています。
+Efficiently process continuous data streams from sensors using Swift 6.0's latest concurrency model.
 
-- `AsyncStream` を用いたイベント監視
-- `Task` と `@MainActor` によるUIスレッドへの安全なデータバインディング
+- Event monitoring with `AsyncStream`
+- Safe UI thread data binding with `Task` and `@MainActor`
 - **Key Files:** `ScaleViewModel.swift`, `WeighingViewModel.swift`
 
-### 3. 信号処理 (Signal Processing)
+### 3. Signal Processing
 
-センサーの生値は常に揺れ動いています（ノイズ）。これを不快感のない滑らかな音量変化に変換するためのアルゴリズム実装が含まれています。
+Raw sensor values constantly fluctuate (noise). Includes algorithm implementations to convert this into smooth, comfortable volume changes.
 
-| パラメータ | 値 | 説明 |
-|-----------|-----|------|
-| `historySize` | 10 | 移動平均のウィンドウサイズ |
-| `rateOfChangeThreshold` | 5.0 | 物体検出の変化率閾値 |
-| `stabilityThreshold` | 2.0 | 安定判定の許容範囲 |
-| `fingerHoldDuration` | 3.0秒 | 指検出の待機時間 |
-| `stabilityDuration` | 3.0秒 | 安定待機時間 |
+| Parameter | Value | Description |
+|-----------|-------|-------------|
+| `historySize` | 10 | Moving average window size |
+| `rateOfChangeThreshold` | 5.0 | Object detection rate threshold |
+| `stabilityThreshold` | 2.0 | Stability judgment tolerance |
+| `fingerHoldDuration` | 3.0s | Finger detection wait time |
+| `stabilityDuration` | 3.0s | Stability wait time |
 
 - **Key Files:** `WeighingViewModel.swift`
 
-### 4. macOS システム統合
+### 4. macOS System Integration
 
-アプリ内だけでなく、OS全体のマスターボリュームを制御するための `AudioToolbox` や `Core Audio` との連携、およびサンドボックス環境下での権限管理 (`entitlements`) について学べます。
+Learn about integration with `AudioToolbox` and `Core Audio` to control the OS-wide master volume, and permission management in sandbox environments (`entitlements`).
 
-### 5. テスト可能な設計 (Testable Architecture)
+### 5. Testable Architecture
 
-プライベートAPIに依存するコードでも、プロトコル抽象化と依存性注入によりユニットテストを可能にする設計パターンを学べます。
+Learn design patterns that enable unit testing even for code dependent on private APIs through protocol abstraction and dependency injection.
 
 ```swift
 protocol TouchDataProviding: AnyObject, Sendable {
@@ -235,26 +238,26 @@ protocol TouchDataProviding: AnyObject, Sendable {
 
 ---
 
-## 貢献 (Contributing)
+## Contributing
 
-1. このリポジトリをフォーク
-2. フィーチャーブランチを作成 (`git checkout -b feature/amazing-feature`)
-3. **テストを書いてから**実装
-4. テストが全てパスすることを確認 (`xcodebuild test ...`)
-5. 変更をコミット (`git commit -m 'Add amazing feature'`)
-6. ブランチをプッシュ (`git push origin feature/amazing-feature`)
-7. Pull Request を作成
-
----
-
-## 免責事項 (Disclaimer)
-
-> **警告:** トラックパッドに過度な重さをかけたり、鋭利な物を置いたりしないでください。トラックパッドが破損する恐れがあります。本アプリの使用によって生じたハードウェアの損傷について、開発者は一切の責任を負いません。
-
-**これはジョークです。本気で日常利用しないでください。**
+1. Fork this repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Write tests first** before implementing
+4. Ensure all tests pass (`xcodebuild test ...`)
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push the branch (`git push origin feature/amazing-feature`)
+7. Create a Pull Request
 
 ---
 
-## ライセンス (License)
+## Disclaimer
 
-MIT License - 詳細は [LICENSE](LICENSE) を参照してください。
+> **Warning:** Do not place excessive weight or sharp objects on the trackpad. This may damage your trackpad. The developer assumes no responsibility for any hardware damage caused by using this app.
+
+**This is a joke. Please don't use it for daily activities.**
+
+---
+
+## License
+
+MIT License - See [LICENSE](LICENSE) for details.
