@@ -2,261 +2,287 @@
 
 [![Platform](https://img.shields.io/badge/platform-macOS%2013.0+-blue.svg)](https://www.apple.com/macos/)
 [![Swift](https://img.shields.io/badge/Swift-6.0-orange.svg)](https://swift.org/)
-[![Tests](https://img.shields.io/badge/tests-48%20passed-brightgreen.svg)](#テスト-testing)
+[![Tests](https://img.shields.io/badge/tests-48%20passed-brightgreen.svg)](#テスト)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](../../LICENSE)
+[![トラックパッド破壊](https://img.shields.io/badge/トラックパッド破壊-確実-red.svg)](#免責事項)
+[![開発者の正気](https://img.shields.io/badge/開発者の正気-疑わしい-yellow.svg)](#免責事項)
 
 **🌍 [English](../../README.md) | [简体中文](README_zh-CN.md) | [繁體中文](README_zh-TW.md) | [Русский](README_ru.md) | [فارسی](README_fa.md) | [العربية](README_ar.md)**
 
-**MacBookのトラックパッドを「世界で最も不便な音量コントローラー」に変える**
+---
 
-[Gravity Volume Control] は、MacBookのトラックパッドに搭載された感圧センサー (Force Touch) を利用し、**「乗せた物の重さ」でシステム音量を制御する** ジョークアプリケーションです。
+## 🏆 おめでとうございます！世界で最も不便な音量コントローラーを発見しました
 
-エンジニア界隈で人気の「最悪な音量UIコンテスト (Bad Volume Control UI)」へのオマージュとして開発されました。
+> *「スライダーがあるのに、なぜ重力を使わないの？」* — 誰も言ってない
 
-https://github.com/user-attachments/assets/demo-video-placeholder
+**Gravity Volume Control** は、あなたの大切なMacBookのForce Touchトラックパッドを **音量も調整できる20万円超のキッチンスケール** に変えます。だって、ボタンを押すのは簡単すぎたから。
+
+### 🍴 愛を込めてフォーク（判断力は疑問）
+
+この最悪なUXの傑作は [KrishKrosh/TrackWeight](https://github.com/KrishKrosh/TrackWeight) のフォークです — 「ねえ、音量調整に物理学の学位が必要だったらどうする？」と考えた元祖の天才です。
+
+私たちはそのアイデアを ~~さらに悪く~~ *機能豊富に* しました。
 
 ---
 
-## 目次
+## 🎬 カオスをご覧ください
 
-- [使い方](#使い方-the-bad-experience)
-- [動作環境](#動作環境-requirements)
-- [インストール](#インストール-installation)
-- [開発](#開発-development)
-- [アーキテクチャ](#アーキテクチャ-architecture)
-- [プロジェクト構成](#プロジェクト構成-project-structure)
-- [学習できる技術要素](#学習できる技術要素-for-engineers)
-- [免責事項](#免責事項-disclaimer)
+https://github.com/user-attachments/assets/7eaf9e0b-3dec-4829-b868-f54a8fd53a84
+
+*はい、本物の人間です。はい、本当に物で音量を調整しています。いいえ、私たちにも理由はわかりません。*
 
 ---
 
-## 使い方 (The "Bad" Experience)
+## 📖 目次
 
-1. アプリを起動します。
-2. トラックパッドに指を置きます（通電のため必須）。
-3. その指の横に **「重り」** を置きます。
-   - 🪶 **軽いもの (例: 消しゴム)** → 🔈 音量: 小
-   - 🍺 **重いもの (例: 満タンのマグカップ)** → 🔊 音量: 大
-4. 動画を見ている間、**その重い物をずっとトラックパッドに乗せ続けてください**。物をどかすと、即座にミュートになります。
-
----
-
-## 動作環境 (Requirements)
-
-| 項目 | 要件 |
-|------|------|
-| OS | macOS 13.0 (Ventura) 以上 |
-| ハードウェア | Force Touch 対応トラックパッド搭載 MacBook |
-| Xcode | 16.0 以上 |
-| Swift | 6.0 |
-
-> **Note:** 外部トラックパッドや Magic Trackpad では動作しません。MacBook 内蔵トラックパッドのみ対応しています。
+- [「体験」](#-一日を台無しにする方法使い方)
+- [必要環境](#-自滅の条件必要環境)
+- [インストール](#-後悔のインストール)
+- [開発](#-開発苦痛の旅)
+- [アーキテクチャ](#-アーキテクチャジョークのための過剰設計)
+- [学べること](#-学べること唯一の救い)
+- [コントリビュート](#-コントリビュート苦しみは分かち合うもの)
+- [免責事項](#️-免責事項これはマジで読んで)
 
 ---
 
-## インストール (Installation)
+## 🤡 一日を台無しにする方法（使い方）
 
-### Homebrew (推奨)
+1. **アプリを起動** して、すぐに人生の選択を疑う
+2. **トラックパッドに指を置く**（導電のため必須、まるで人間のアース線）
+3. **指の横に「重り」を置く**
+   - 🪶 **軽いもの（消しゴム）** → 🔈 静か、後悔のように
+   - 🍺 **重いもの（満タンのマグカップ）** → 🔊 うるさい、同僚の「なんで？」のように
+4. **動画を見ている間ずっとその物を置き続ける**
+   - どかしたら？ **即ミュート。**
+   - くしゃみしたら？ **ミュート。**
+   - 猫が通ったら？ **カオス。**
+   - 実際にパソコンを使いたい？ **残念でした。**
+
+### 💡 誰も聞いてないプロのコツ
+
+- コーヒーマグは最高...30万円のMacBook Proにコーヒーをこぼすまでは
+- スマホは完璧な重さ...誰かから電話がかかってくるまでは
+- 教科書は安定した音量を提供...そして学生ローンを思い出させる
+- あなたのプライドは重さゼロなので音量調整に使えません
+
+---
+
+## 💀 自滅の条件（必要環境）
+
+| 項目 | 要件 | 現実確認 |
+|------|------|----------|
+| OS | macOS 13.0以上 | モダンなAPIで時代遅れなことをするため |
+| ハードウェア | Force Touch トラックパッド | 今から酷使される3万円のパーツ |
+| Xcode | 16.0以上 | 後悔をコンパイルするため |
+| Swift | 6.0 | モダンな言語、古代の知恵：「やめとけ」 |
+| 正気 | オプション | 明らかに私たちには無かった |
+
+> **⚠️ 重要:** 外部トラックパッドでは動作しません。Appleは明らかにMagic Trackpadを「マグカップを置きたく*ない*人」向けに設計しました。臆病者め。
+
+---
+
+## 📦 後悔のインストール
+
+### Homebrew（見知らぬ人を信じる人向け）
 
 ```bash
+# 本当にやるの？
 brew install --cask gravity-volume-control
 ```
 
-### 手動インストール
+### 手動インストール（コントロールフリーク向け）
 
-1. [Releases](https://github.com/clearclown/volumeControlWithTrackWeight/releases) から最新の `.dmg` をダウンロード
-2. `Gravity Volume Control.app` を `/Applications` にドラッグ
-3. 初回起動時、「開発元を確認できない」と表示される場合は、システム設定 > プライバシーとセキュリティ から許可
+1. [Releases](https://github.com/clearclown/volumeControlWithTrackWeight/releases) から `.dmg` をダウンロード（あまり審判しません...たぶん）
+2. `/Applications` にドラッグ（もう戻れない）
+3. macOSが「開発元を確認できません」と言ったら — まあ、そうだろうね
 
-### ソースからビルド
+### ソースからビルド（マゾヒスト向け）
 
 ```bash
 git clone https://github.com/clearclown/volumeControlWithTrackWeight.git
 cd volumeControlWithTrackWeight
+
+# ジョークのために1700行以上のコードをコンパイル
 xcodebuild build -scheme TrackWeight -destination 'platform=macOS'
+
+# おめでとう、悪い決断を量産できるようになりました
 ```
 
 ---
 
-## 開発 (Development)
+## 🛠 開発（苦痛の旅）
 
-### 開発方針
+### 開発哲学: TDD (Tragedy-Driven Development / 悲劇駆動開発)
 
-このプロジェクトは **TDD (テスト駆動開発)** を採用しています。
+このプロジェクトは **テスト駆動開発** に従っています。無駄なものを作るなら、*正しく* 作ろうということで。
 
-- 新機能追加時は、まずテストを書く
-- 実機での動作確認より、テストの成功を優先
-- ViewModelは依存性注入 (DI) によりテスト可能な設計
+- ✅ 機能の前にテストを書く（私たちが唯一責任を持ってやること）
+- ✅ 48のテスト、全てパス（アプリは動く、ただ...なんで？）
+- ✅ テスト可能性のための依存性注入（だってプロフェッショナル™だから）
 
-### ビルド
+### テストカバレッジ（唯一の誇り）
+
+| テストスイート | テスト数 | 証明すること |
+|----------------|----------|--------------|
+| `ScaleViewModelTests` | 17 | 秤は動く。残念ながら。 |
+| `WeighingViewModelTests` | 24 | 重量検出は正確。やったね。 |
+| `WeighingStateTests` | 7 | ステートマシンは動く。やったー？ |
+| **合計** | **48** | コンセプトよりテストに労力をかけた |
 
 ```bash
-# アプリをビルド
-xcodebuild build -scheme TrackWeight -destination 'platform=macOS' \
-  CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-```
-
-### テスト (Testing)
-
-```bash
-# 全テストを実行
+# テストを実行（唯一意味のあるコマンド）
 xcodebuild test -scheme TrackWeight -destination 'platform=macOS' \
-  -only-testing:TrackWeightTests \
-  CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-```
-
-**テストカバレッジ:**
-
-| テストスイート | テスト数 | 対象 |
-|--------------|---------|------|
-| `ScaleViewModelTests` | 17 | 基本的な秤機能 |
-| `WeighingViewModelTests` | 24 | 計量ワークフロー・状態遷移 |
-| `WeighingStateTests` | 7 | 状態の等価性 |
-| **合計** | **48** | - |
-
-### AI開発支援
-
-AI アシスタント (Claude Code 等) での開発時は `CLAUDE.md` を参照してください。TDDルールや禁止事項が記載されています。
-
----
-
-## アーキテクチャ (Architecture)
-
-このアプリは、ハードウェアからの入力をリアクティブにUIとシステム設定へ反映させる **MVVM (Model-View-ViewModel)** パターンを採用しています。
-
-```mermaid
-graph TD
-    Hardware[Trackpad Force Sensors] -->|Raw Pressure Data| OMS[OpenMultitouchSupport Framework]
-    OMS -->|Async Stream| VM[ScaleViewModel / WeighingViewModel]
-
-    subgraph "Application Logic"
-        VM -->|Signal Processing| Logic[Smoothing & Mapping]
-        Logic -->|Calculated Volume| PublishedVar[@Published volume]
-    end
-
-    PublishedVar -->|Binding| View[SwiftUI View]
-    PublishedVar -->|Side Effect| AudioAPI[macOS System Audio]
-```
-
-### データフロー
-
-1. **Data Source:** `OpenMultitouchSupport` がハードウェア割り込みをフックし、タッチイベントを生成。
-2. **ViewModel:** `ScaleViewModel` が非同期ストリーム (`for await`) でデータを受け取り、ノイズ除去と数値変換（圧力 0.0〜1.0 → 音量 0.0〜100.0）を行う。
-3. **View:** SwiftUIが `@Published` プロパティの変更を検知し、画面上の「重そうなアニメーション」を描画。
-4. **System:** 同時にバックグラウンドでシステム音量を更新。
-
-### 依存性注入 (DI)
-
-ViewModelはテスト可能な設計になっています：
-
-```swift
-// 本番環境（デフォルト）
-let viewModel = ScaleViewModel() // OMSManager.shared を使用
-
-// テスト環境
-let mockProvider = MockTouchDataProvider()
-let viewModel = ScaleViewModel(touchProvider: mockProvider)
+  -only-testing:TrackWeightTests
 ```
 
 ---
 
-## プロジェクト構成 (Project Structure)
+## 🏗 アーキテクチャ（ジョークのための過剰設計）
+
+**MVVM** を使用しました。バカなことをするなら、適切なソフトウェアアーキテクチャでやろう。
 
 ```
-volumeControlWithTrackWeight/
-├── TrackWeight/                    # メインアプリケーション
-│   ├── TrackWeightApp.swift        # エントリーポイント
-│   ├── ContentView.swift           # メイン画面
-│   ├── ScaleView.swift             # 秤UI
-│   ├── ScaleViewModel.swift        # 秤ロジック
-│   ├── WeighingView.swift          # 計量UI
-│   ├── WeighingViewModel.swift     # 計量ワークフロー
-│   ├── WeighingState.swift         # 状態定義
-│   └── TouchDataProviding.swift    # DI用プロトコル
-│
-├── TrackWeightTests/               # ユニットテスト
-│   ├── Mocks/
-│   │   └── MockTouchDataProvider.swift
-│   ├── ScaleViewModelTests.swift
-│   ├── WeighingViewModelTests.swift
-│   └── WeighingStateTests.swift
-│
-├── CLAUDE.md                       # AI開発ガイドライン
-└── README.md
+┌─────────────────────────────────────────────────────────────────┐
+│                      後悔のフロー                                │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌──────────────┐     ┌─────────────────────┐                  │
+│  │ あなたのマグ  │────▶│  Force Touch センサー│                  │
+│  │  (無垢)      │     │    (酷使中)         │                  │
+│  └──────────────┘     └──────────┬──────────┘                  │
+│                                  │                              │
+│                                  ▼                              │
+│                    ┌─────────────────────────┐                 │
+│                    │ OpenMultitouchSupport   │                 │
+│                    │   (盗んだPrivate API)   │                 │
+│                    └──────────┬──────────────┘                 │
+│                               │                                 │
+│                               ▼                                 │
+│         ┌─────────────────────────────────────────┐            │
+│         │            ViewModel レイヤー            │            │
+│         │  ┌─────────────┐  ┌─────────────────┐  │            │
+│         │  │ ScaleVM     │  │ WeighingVM      │  │            │
+│         │  │ (計算)      │  │ (もっと計算)     │  │            │
+│         │  └─────────────┘  └─────────────────┘  │            │
+│         └───────────────────┬─────────────────────┘            │
+│                             │                                   │
+│              ┌──────────────┴──────────────┐                   │
+│              ▼                              ▼                   │
+│    ┌──────────────────┐          ┌─────────────────┐           │
+│    │   SwiftUI View   │          │  System Audio   │           │
+│    │ (ほぼ無意味)     │          │  (実際の変更)   │           │
+│    └──────────────────┘          └─────────────────┘           │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
----
+### データフロー（4幕の悲劇）
 
-## 学習できる技術要素 (For Engineers)
+1. **第1幕:** あなたのマグカップが無邪気にトラックパッドの上に座る
+2. **第2幕:** 使うべきじゃないPrivate APIが圧力データをキャプチャ
+3. **第3幕:** 複雑な信号処理（移動平均、ノイズ除去）で重量を計算
+4. **第4幕:** システム音量が変わる。同僚があなたを審判する。
 
-一見するとただのジョークアプリですが、内部では高度な技術的挑戦が行われています。Swiftエンジニアとして以下の要素を実践的に学ぶことができます。
+### 信号処理パラメータ（マジで真剣です）
 
-### 1. Apple Private APIs & ハードウェア制御
-
-通常アクセスできないトラックパッドの生データ（圧力、接触面積）を取得するために、プライベートフレームワークである `OpenMultitouchSupport` の解析と利用方法を学べます。
-
-- **Key Files:** `ContentViewModel.swift`, `TouchDataProviding.swift`
-
-### 2. Swift Modern Concurrency (Async/Await)
-
-センサーから絶え間なく流れてくるデータストリームを、Swift 6.0時代の最新の並行処理モデルで効率的に処理しています。
-
-- `AsyncStream` を用いたイベント監視
-- `Task` と `@MainActor` によるUIスレッドへの安全なデータバインディング
-- **Key Files:** `ScaleViewModel.swift`, `WeighingViewModel.swift`
-
-### 3. 信号処理 (Signal Processing)
-
-センサーの生値は常に揺れ動いています（ノイズ）。これを不快感のない滑らかな音量変化に変換するためのアルゴリズム実装が含まれています。
-
-| パラメータ | 値 | 説明 |
-|-----------|-----|------|
-| `historySize` | 10 | 移動平均のウィンドウサイズ |
-| `rateOfChangeThreshold` | 5.0 | 物体検出の変化率閾値 |
-| `stabilityThreshold` | 2.0 | 安定判定の許容範囲 |
-| `fingerHoldDuration` | 3.0秒 | 指検出の待機時間 |
-| `stabilityDuration` | 3.0秒 | 安定待機時間 |
-
-- **Key Files:** `WeighingViewModel.swift`
-
-### 4. macOS システム統合
-
-アプリ内だけでなく、OS全体のマスターボリュームを制御するための `AudioToolbox` や `Core Audio` との連携、およびサンドボックス環境下での権限管理 (`entitlements`) について学べます。
-
-### 5. テスト可能な設計 (Testable Architecture)
-
-プライベートAPIに依存するコードでも、プロトコル抽象化と依存性注入によりユニットテストを可能にする設計パターンを学べます。
-
-```swift
-protocol TouchDataProviding: AnyObject, Sendable {
-    var touchDataStream: AsyncStream<[OMSTouchData]> { get }
-    @MainActor func startListening() -> Bool
-    @MainActor func stopListening() -> Bool
-}
-```
+| パラメータ | 値 | なぜ必要か |
+|------------|-----|-----------|
+| `historySize` | 10 | 移動平均ウィンドウ（コーヒーが揺れる） |
+| `rateOfChangeThreshold` | 5.0 | 物体検出（電話？ホッチキス？） |
+| `stabilityThreshold` | 2.0 | 重量を受け入れるタイミング（震えるな！） |
+| `stabilityDuration` | 3.0秒 | 待機時間（永遠より短く感じる） |
 
 ---
 
-## 貢献 (Contributing)
+## 📚 学べること（唯一の救い）
 
-1. このリポジトリをフォーク
-2. フィーチャーブランチを作成 (`git checkout -b feature/amazing-feature`)
-3. **テストを書いてから**実装
-4. テストが全てパスすることを確認 (`xcodebuild test ...`)
-5. 変更をコミット (`git commit -m 'Add amazing feature'`)
-6. ブランチをプッシュ (`git push origin feature/amazing-feature`)
-7. Pull Request を作成
+さて、本音を言うと。完全にイカれてるにも関わらず、このプロジェクトは学習の宝庫です：
+
+### 1. 🔓 Apple Private API（グレーゾーン速攻）
+
+禁断の `OpenMultitouchSupport` フレームワークにアクセス。Appleが見せたくないものを見る。ハッカー気分を味わう。App Storeからリジェクトされる。
+
+### 2. ⚡ Swift 6.0 並行処理（Async/Await実践）
+
+実践的な `AsyncStream` の使用法、`@MainActor` パターン、`Task` 管理。将来の雇用主は、この知識がマグカップ計量アプリから来たとは知らない。
+
+### 3. 📊 信号処理（初心者向けDSP）
+
+移動平均、変化率検出、安定性アルゴリズム。オーディオを処理しているように見える...実際はコーヒーマグのデータだけど。
+
+### 4. 🎭 MVVM + 依存性注入（教科書通り）
+
+プロトコルベースの抽象化、モックオブジェクト、テスト可能なアーキテクチャ。大半の本番アプリより良く書かれたジョークアプリ。
+
+### 5. 🍎 macOS システム統合
+
+Core Audio、AudioToolbox、entitlements。プログラムからシステム音量を制御。この力を善のために使え（これじゃなくて）。
 
 ---
 
-## 免責事項 (Disclaimer)
+## 🤝 コントリビュート（苦しみは分かち合うもの）
 
-> **警告:** トラックパッドに過度な重さをかけたり、鋭利な物を置いたりしないでください。トラックパッドが破損する恐れがあります。本アプリの使用によって生じたハードウェアの損傷について、開発者は一切の責任を負いません。
+1. この悪い決断の記念碑を **Fork**
+2. **ブランチを作成** (`git checkout -b feature/もっと悪いアイデア`)
+3. **まずテストを書く**（基準はある、常識はない）
+4. いい感じに **もっと悪く** する
+5. **PRを提出** してサポートグループに参加
 
-**これはジョークです。本気で日常利用しないでください。**
+### まだ実装してないアイデア
+
+- [ ] 頭を傾けて明るさを調整
+- [ ] 周囲の音で壁紙を変更
+- [ ] 室温でキーボードバックライトを調整
+- [ ] モールス信号で瞬きしてメールを送信
 
 ---
 
-## ライセンス (License)
+## ⚠️ 免責事項（これはマジで読んで）
 
-MIT License - 詳細は [LICENSE](../../LICENSE) を参照してください。
+> **🚨 警告: ここは冗談じゃないセクション（皮肉にも）**
+>
+> - トラックパッドに重いものを置くな
+> - ノートパソコンの近くに液体を置くな
+> - 5万円のトラックパッド交換が必要になっても私たちを責めるな
+> - これを本番で使うな（なんで使うの？）
+> - これをIT部門に見せるな
+> - Appleにこれを言うな
+>
+> **開発者が一切責任を負わないもの:**
+> - 壊れたトラックパッド
+> - こぼれたコーヒー
+> - 困惑した家族
+> - 失われた生産性
+> - 存在危機
+> - 同僚との関係悪化
+> - Apple Genius Barの予約
+
+---
+
+## 🙏 謝辞
+
+- [KrishKrosh/TrackWeight](https://github.com/KrishKrosh/TrackWeight) — 元祖マッドサイエンティスト
+- 「最悪の音量UI」ミームコミュニティ — インスピレーションをくれて
+- Appleのエンジニア — 絶対こうなることを意図していなかった
+- 私たちのセラピスト — 話を聞いてくれて
+
+---
+
+## 📜 ライセンス
+
+MIT License — カオスにも自由を。
+
+このコードは好きなように使ってください。私たちに責任はありません。そもそも責任なんてなかった。
+
+---
+
+<div align="center">
+
+**もっと分別があるべき開発者が 🤦 を込めて作りました**
+
+*「勝つ唯一の方法はプレイしないこと」— でも私たちはプレイした*
+
+⭐ このリポジトリにスターをつけて悪い行いを助長しよう ⭐
+
+</div>

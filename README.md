@@ -4,260 +4,285 @@
 [![Swift](https://img.shields.io/badge/Swift-6.0-orange.svg)](https://swift.org/)
 [![Tests](https://img.shields.io/badge/tests-48%20passed-brightgreen.svg)](#testing)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](LICENSE)
+[![Mass Destruction](https://img.shields.io/badge/trackpad%20destruction-guaranteed-red.svg)](#disclaimer)
+[![Sanity](https://img.shields.io/badge/developer%20sanity-questionable-yellow.svg)](#disclaimer)
 
 **🌍 [日本語](docs/readmeLang/README_ja.md) | [简体中文](docs/readmeLang/README_zh-CN.md) | [繁體中文](docs/readmeLang/README_zh-TW.md) | [Русский](docs/readmeLang/README_ru.md) | [فارسی](docs/readmeLang/README_fa.md) | [العربية](docs/readmeLang/README_ar.md)**
 
-**Transform your MacBook's trackpad into "The World's Most Inconvenient Volume Controller"**
+---
 
-[Gravity Volume Control] is a joke application that uses the Force Touch pressure sensor built into MacBook trackpads to **control system volume by the weight of objects placed on it**.
+## 🏆 Congratulations! You've Found The World's Most Inconvenient Volume Controller
 
-Developed as an homage to the popular "Bad Volume Control UI Contest" in the engineering community.
+> *"Why use a slider when you can use gravity?"* — No one, ever
 
-https://github.com/user-attachments/assets/demo-video-placeholder
+**Gravity Volume Control** turns your precious MacBook's Force Touch trackpad into a **$2000+ kitchen scale that also happens to control volume**. Because apparently, pressing a button was too easy.
+
+### 🍴 Forked with Love (and Questionable Judgment)
+
+This masterpiece of terrible UX is a fork of [KrishKrosh/TrackWeight](https://github.com/KrishKrosh/TrackWeight) — the original genius who thought "Hey, what if we made volume control require a physics degree?"
+
+We took that idea and made it ~~worse~~ *more feature-rich*.
 
 ---
 
-## Table of Contents
+## 🎬 Watch The Chaos Unfold
 
-- [How to Use](#how-to-use-the-bad-experience)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Development](#development)
-- [Architecture](#architecture)
-- [Project Structure](#project-structure)
-- [Learning Opportunities](#learning-opportunities-for-engineers)
-- [Contributing](#contributing)
-- [Disclaimer](#disclaimer)
+https://github.com/user-attachments/assets/7eaf9e0b-3dec-4829-b868-f54a8fd53a84
+
+*Yes, that's a real person. Yes, they're actually controlling volume with objects. No, we don't know why either.*
 
 ---
 
-## How to Use (The "Bad" Experience)
+## 📖 Table of Contents
 
-1. Launch the app.
-2. Place your finger on the trackpad (required for electrical conductivity).
-3. Place a **"weight"** next to your finger.
-   - 🪶 **Light objects (e.g., eraser)** → 🔈 Volume: Low
-   - 🍺 **Heavy objects (e.g., full mug)** → 🔊 Volume: High
-4. **Keep that heavy object on the trackpad the entire time** you're watching a video. If you remove it, the audio instantly mutes.
-
----
-
-## Requirements
-
-| Item | Requirement |
-|------|-------------|
-| OS | macOS 13.0 (Ventura) or later |
-| Hardware | MacBook with Force Touch trackpad |
-| Xcode | 16.0 or later |
-| Swift | 6.0 |
-
-> **Note:** Does NOT work with external trackpads or Magic Trackpad. Only supports built-in MacBook trackpads.
+- [The "Experience"](#-how-to-ruin-your-day-usage)
+- [Requirements](#-requirements-for-self-destruction)
+- [Installation](#-installation-of-regret)
+- [Development](#-development-a-journey-of-pain)
+- [Architecture](#-architecture-over-engineered-for-a-joke)
+- [Learning Opportunities](#-learning-opportunities-the-only-redeeming-quality)
+- [Contributing](#-contributing-misery-loves-company)
+- [Disclaimer](#-disclaimer-please-read-seriously)
 
 ---
 
-## Installation
+## 🤡 How to Ruin Your Day (Usage)
 
-### Homebrew (Recommended)
+1. **Launch the app** and immediately question your life choices
+2. **Place your finger on the trackpad** (required for conductivity, like you're some kind of human ground wire)
+3. **Place a "weight" next to your finger**
+   - 🪶 **Light stuff (eraser)** → 🔈 Quiet, like your regret
+   - 🍺 **Heavy stuff (full mug)** → 🔊 LOUD, like your coworkers asking "WHY?"
+4. **Keep that object there THE ENTIRE TIME** you're watching videos
+   - Remove it? **Instant mute.**
+   - Sneeze? **Mute.**
+   - Cat walks by? **Chaos.**
+   - Need to actually use your computer? **Too bad.**
+
+### 💡 Pro Tips Nobody Asked For
+
+- Coffee mugs work great until you spill coffee on your $3000 MacBook Pro
+- Your phone is the perfect weight... until someone calls
+- Textbooks provide stable volume... and remind you of your student loans
+- Your dignity has zero weight and therefore cannot control volume
+
+---
+
+## 💀 Requirements (For Self-Destruction)
+
+| Item | Requirement | Reality Check |
+|------|-------------|---------------|
+| OS | macOS 13.0+ | Because we use modern APIs to do unmodern things |
+| Hardware | Force Touch trackpad | The $300 component you're about to abuse |
+| Xcode | 16.0+ | To compile your regrets |
+| Swift | 6.0 | Modern language, ancient wisdom: "don't do this" |
+| Sanity | Optional | Clearly we didn't have any |
+
+> **⚠️ IMPORTANT:** Does NOT work with external trackpads. Apple apparently designed Magic Trackpad for people who *don't* want to put mugs on it. Cowards.
+
+---
+
+## 📦 Installation (Of Regret)
+
+### Homebrew (For Those Who Trust Strangers)
 
 ```bash
+# You're really doing this, huh?
 brew install --cask gravity-volume-control
 ```
 
-### Manual Installation
+### Manual Installation (For Control Freaks)
 
-1. Download the latest `.dmg` from [Releases](https://github.com/clearclown/volumeControlWithTrackWeight/releases)
-2. Drag `Gravity Volume Control.app` to `/Applications`
-3. On first launch, if you see "Developer cannot be verified", go to System Settings > Privacy & Security and allow it
+1. Download `.dmg` from [Releases](https://github.com/clearclown/volumeControlWithTrackWeight/releases) (we won't judge... much)
+2. Drag to `/Applications` (the point of no return)
+3. When macOS says "unidentified developer" — yeah, that tracks
 
-### Build from Source
+### Build from Source (For Masochists)
 
 ```bash
 git clone https://github.com/clearclown/volumeControlWithTrackWeight.git
 cd volumeControlWithTrackWeight
+
+# Compile 1700+ lines of code for a joke
 xcodebuild build -scheme TrackWeight -destination 'platform=macOS'
+
+# Congratulations, you now mass-produce bad decisions
 ```
 
 ---
 
-## Development
+## 🛠 Development (A Journey of Pain)
 
-### Development Philosophy
+### Our Development Philosophy: TDD (Tragedy-Driven Development)
 
-This project follows **TDD (Test-Driven Development)**.
+This project follows **Test-Driven Development** because if we're going to build something useless, we're going to build it *correctly*.
 
-- Write tests first when adding new features
-- Prioritize test success over manual device testing
-- ViewModels use Dependency Injection (DI) for testable design
+- ✅ Write tests before features (the only responsible thing we do)
+- ✅ 48 tests, all passing (the app works, just... why?)
+- ✅ Dependency Injection for testability (because we're professionals™)
 
-### Build
+### Test Coverage (Our Only Pride)
+
+| Test Suite | Tests | What It Proves |
+|------------|-------|----------------|
+| `ScaleViewModelTests` | 17 | The scale works. Unfortunately. |
+| `WeighingViewModelTests` | 24 | Weight detection is accurate. Great. |
+| `WeighingStateTests` | 7 | State machine works. Yay? |
+| **Total** | **48** | We put more effort into tests than the concept |
 
 ```bash
-# Build the app
-xcodebuild build -scheme TrackWeight -destination 'platform=macOS' \
-  CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-```
-
-### Testing
-
-```bash
-# Run all tests
+# Run tests (the only command that makes sense)
 xcodebuild test -scheme TrackWeight -destination 'platform=macOS' \
-  -only-testing:TrackWeightTests \
-  CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
-```
-
-**Test Coverage:**
-
-| Test Suite | Test Count | Target |
-|------------|------------|--------|
-| `ScaleViewModelTests` | 17 | Basic scale functionality |
-| `WeighingViewModelTests` | 24 | Weighing workflow & state transitions |
-| `WeighingStateTests` | 7 | State equality |
-| **Total** | **48** | - |
-
-### AI Development Support
-
-When developing with AI assistants (Claude Code, etc.), refer to `CLAUDE.md` for TDD rules and guidelines.
-
----
-
-## Architecture
-
-This app uses the **MVVM (Model-View-ViewModel)** pattern to reactively reflect hardware input to both UI and system settings.
-
-```mermaid
-graph TD
-    Hardware[Trackpad Force Sensors] -->|Raw Pressure Data| OMS[OpenMultitouchSupport Framework]
-    OMS -->|Async Stream| VM[ScaleViewModel / WeighingViewModel]
-
-    subgraph "Application Logic"
-        VM -->|Signal Processing| Logic[Smoothing & Mapping]
-        Logic -->|Calculated Volume| PublishedVar[@Published volume]
-    end
-
-    PublishedVar -->|Binding| View[SwiftUI View]
-    PublishedVar -->|Side Effect| AudioAPI[macOS System Audio]
-```
-
-### Data Flow
-
-1. **Data Source:** `OpenMultitouchSupport` hooks hardware interrupts and generates touch events.
-2. **ViewModel:** `ScaleViewModel` receives data via async stream (`for await`), performs noise reduction and value conversion (pressure 0.0~1.0 → volume 0.0~100.0).
-3. **View:** SwiftUI detects `@Published` property changes and renders "heavy-looking animations".
-4. **System:** Simultaneously updates system volume in background.
-
-### Dependency Injection (DI)
-
-ViewModels are designed for testability:
-
-```swift
-// Production (default)
-let viewModel = ScaleViewModel() // Uses OMSManager.shared
-
-// Testing
-let mockProvider = MockTouchDataProvider()
-let viewModel = ScaleViewModel(touchProvider: mockProvider)
+  -only-testing:TrackWeightTests
 ```
 
 ---
 
-## Project Structure
+## 🏗 Architecture (Over-Engineered for a Joke)
+
+We used **MVVM** because if you're going to do something stupid, do it with proper software architecture.
 
 ```
-volumeControlWithTrackWeight/
-├── TrackWeight/                    # Main application
-│   ├── TrackWeightApp.swift        # Entry point
-│   ├── ContentView.swift           # Main screen
-│   ├── ScaleView.swift             # Scale UI
-│   ├── ScaleViewModel.swift        # Scale logic
-│   ├── WeighingView.swift          # Weighing UI
-│   ├── WeighingViewModel.swift     # Weighing workflow
-│   ├── WeighingState.swift         # State definitions
-│   └── TouchDataProviding.swift    # DI protocol
-│
-├── TrackWeightTests/               # Unit tests
-│   ├── Mocks/
-│   │   └── MockTouchDataProvider.swift
-│   ├── ScaleViewModelTests.swift
-│   ├── WeighingViewModelTests.swift
-│   └── WeighingStateTests.swift
-│
-├── CLAUDE.md                       # AI development guidelines
-└── README.md
+┌─────────────────────────────────────────────────────────────────┐
+│                    THE FLOW OF REGRET                           │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌──────────────┐     ┌─────────────────────┐                  │
+│  │  Your Mug    │────▶│  Force Touch Sensor │                  │
+│  │  (Innocent)  │     │  (Being Abused)     │                  │
+│  └──────────────┘     └──────────┬──────────┘                  │
+│                                  │                              │
+│                                  ▼                              │
+│                    ┌─────────────────────────┐                 │
+│                    │ OpenMultitouchSupport   │                 │
+│                    │ (Private API we stole)  │                 │
+│                    └──────────┬──────────────┘                 │
+│                               │                                 │
+│                               ▼                                 │
+│         ┌─────────────────────────────────────────┐            │
+│         │            ViewModel Layer              │            │
+│         │  ┌─────────────┐  ┌─────────────────┐  │            │
+│         │  │ ScaleVM     │  │ WeighingVM      │  │            │
+│         │  │ (Math)      │  │ (More Math)     │  │            │
+│         │  └─────────────┘  └─────────────────┘  │            │
+│         └───────────────────┬─────────────────────┘            │
+│                             │                                   │
+│              ┌──────────────┴──────────────┐                   │
+│              ▼                              ▼                   │
+│    ┌──────────────────┐          ┌─────────────────┐           │
+│    │   SwiftUI View   │          │  System Audio   │           │
+│    │ (Pretty Useless) │          │ (Actual Change) │           │
+│    └──────────────────┘          └─────────────────┘           │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
----
+### The Data Flow (A Tragedy in 4 Acts)
 
-## Learning Opportunities (For Engineers)
+1. **Act 1:** Your mug innocently sits on the trackpad
+2. **Act 2:** Private APIs we shouldn't be using capture pressure data
+3. **Act 3:** Complex signal processing (moving averages, noise reduction) calculates weight
+4. **Act 4:** System volume changes. Your coworkers judge you.
 
-At first glance, this is just a joke app, but it contains advanced technical challenges. As a Swift engineer, you can practically learn the following:
+### Signal Processing Parameters (Yes, We're Serious)
 
-### 1. Apple Private APIs & Hardware Control
-
-Learn how to analyze and use the private framework `OpenMultitouchSupport` to access raw trackpad data (pressure, contact area) that's normally inaccessible.
-
-- **Key Files:** `ContentViewModel.swift`, `TouchDataProviding.swift`
-
-### 2. Swift Modern Concurrency (Async/Await)
-
-Efficiently process continuous data streams from sensors using Swift 6.0's latest concurrency model.
-
-- Event monitoring with `AsyncStream`
-- Safe UI thread data binding with `Task` and `@MainActor`
-- **Key Files:** `ScaleViewModel.swift`, `WeighingViewModel.swift`
-
-### 3. Signal Processing
-
-Raw sensor values constantly fluctuate (noise). Includes algorithm implementations to convert this into smooth, comfortable volume changes.
-
-| Parameter | Value | Description |
-|-----------|-------|-------------|
-| `historySize` | 10 | Moving average window size |
-| `rateOfChangeThreshold` | 5.0 | Object detection rate threshold |
-| `stabilityThreshold` | 2.0 | Stability judgment tolerance |
-| `fingerHoldDuration` | 3.0s | Finger detection wait time |
-| `stabilityDuration` | 3.0s | Stability wait time |
-
-- **Key Files:** `WeighingViewModel.swift`
-
-### 4. macOS System Integration
-
-Learn about integration with `AudioToolbox` and `Core Audio` to control the OS-wide master volume, and permission management in sandbox environments (`entitlements`).
-
-### 5. Testable Architecture
-
-Learn design patterns that enable unit testing even for code dependent on private APIs through protocol abstraction and dependency injection.
-
-```swift
-protocol TouchDataProviding: AnyObject, Sendable {
-    var touchDataStream: AsyncStream<[OMSTouchData]> { get }
-    @MainActor func startListening() -> Bool
-    @MainActor func stopListening() -> Bool
-}
-```
+| Parameter | Value | Why We Need This |
+|-----------|-------|------------------|
+| `historySize` | 10 | Moving average window (your coffee shakes) |
+| `rateOfChangeThreshold` | 5.0 | Object detection (is that a phone or a stapler?) |
+| `stabilityThreshold` | 2.0 | When to accept the weight (stop trembling!) |
+| `stabilityDuration` | 3.0s | How long to wait (forever feels shorter) |
 
 ---
 
-## Contributing
+## 📚 Learning Opportunities (The Only Redeeming Quality)
 
-1. Fork this repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. **Write tests first** before implementing
-4. Ensure all tests pass (`xcodebuild test ...`)
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push the branch (`git push origin feature/amazing-feature`)
-7. Create a Pull Request
+Okay, real talk. Despite being absolutely unhinged, this project is actually a goldmine for learning:
+
+### 1. 🔓 Apple Private APIs (Legal Gray Zone Speedrun)
+
+Access the forbidden `OpenMultitouchSupport` framework. See what Apple doesn't want you to see. Feel like a hacker. Get rejected from the App Store.
+
+### 2. ⚡ Swift 6.0 Concurrency (Async/Await in the Wild)
+
+Real-world `AsyncStream` usage, `@MainActor` patterns, and `Task` management. Your future employer will never know this knowledge came from a mug-weighing app.
+
+### 3. 📊 Signal Processing (DSP for Dummies)
+
+Moving averages, rate-of-change detection, stability algorithms. It's like you're processing audio... but it's actually coffee mug data.
+
+### 4. 🎭 MVVM + Dependency Injection (By the Book)
+
+Protocol-based abstractions, mock objects, testable architecture. We wrote this joke app better than most production apps.
+
+### 5. 🍎 macOS System Integration
+
+Core Audio, AudioToolbox, entitlements. Control system volume programmatically. Use this power for good (not this).
 
 ---
 
-## Disclaimer
+## 🤝 Contributing (Misery Loves Company)
 
-> **Warning:** Do not place excessive weight or sharp objects on the trackpad. This may damage your trackpad. The developer assumes no responsibility for any hardware damage caused by using this app.
+1. **Fork** this monument to poor decisions
+2. **Create a branch** (`git checkout -b feature/even-worse-idea`)
+3. **Write tests first** (we have standards, just not common sense)
+4. **Make it worse** in a good way
+5. **Submit a PR** and join our support group
 
-**This is a joke. Please don't use it for daily activities.**
+### Ideas We Haven't Implemented Yet
+
+- [ ] Control brightness with head tilting
+- [ ] Change wallpaper based on ambient sound
+- [ ] Adjust keyboard backlight with room temperature
+- [ ] Send emails by blinking in morse code
 
 ---
 
-## License
+## ⚠️ Disclaimer (Please Read, Seriously)
 
-MIT License - See [LICENSE](LICENSE) for details.
+> **🚨 WARNING: This is not a joke section (ironically)**
+>
+> - Do NOT place heavy objects on your trackpad
+> - Do NOT place liquids near your laptop
+> - Do NOT blame us when you need a $500 trackpad replacement
+> - Do NOT use this in production (why would you?)
+> - Do NOT show this to your IT department
+> - Do NOT tell Apple about this
+>
+> **The developers assume ZERO responsibility for:**
+> - Broken trackpads
+> - Spilled coffee
+> - Confused family members
+> - Lost productivity
+> - Existential crises
+> - Strained relationships with coworkers
+> - Apple Genius Bar appointments
+
+---
+
+## 🙏 Acknowledgments
+
+- [KrishKrosh/TrackWeight](https://github.com/KrishKrosh/TrackWeight) — The original mad scientist
+- The "Worst Volume UI" meme community — For the inspiration
+- Apple Engineers — Who definitely didn't intend this
+- Our therapists — For listening
+
+---
+
+## 📜 License
+
+MIT License — Because even chaos deserves freedom.
+
+Use this code for whatever you want. We're not responsible. We were never responsible.
+
+---
+
+<div align="center">
+
+**Made with 🤦 by developers who should know better**
+
+*"The only winning move is not to play" — but we played anyway*
+
+⭐ Star this repo to enable our bad behavior ⭐
+
+</div>
